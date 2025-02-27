@@ -1,0 +1,12 @@
+<p>patient works! patient</p>
+
+<table mat-table [dataSource]="patientService.patients()">
+
+    <ng-container matColumnDef="Statut">
+        <th mat-header-cell $matHeaderCellDef>Statut</th>
+        <td mat-cell *matCellDef="let patient"> {{ patient.statut }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
