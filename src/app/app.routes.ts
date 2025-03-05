@@ -13,11 +13,11 @@ export const routes: Routes = [
     },
     {
         path: 'patient',
-        component: PatientComponent
+        loadChildren: () => import('./features/patient/patient.routes').then(m => m.PATIENT_ROUTES)
     },
     {
         path: 'owner',
-        component: OwnerComponent
+        loadChildren: () => import('./features/owner/owner.routes').then(m => m.OWNER_ROUTES)
     },
     {
         path: 'surgery',
@@ -25,6 +25,6 @@ export const routes: Routes = [
     },
     {
         path: 'document',
-        component: DocumentComponent
+        loadChildren: () => import('./features/document/document.routes').then(m => m.DOCUMENT_ROUTES)
     }
 ];

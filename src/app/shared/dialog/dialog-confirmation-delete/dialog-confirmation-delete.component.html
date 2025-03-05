@@ -1,0 +1,11 @@
+<div class="p-4">
+  <fa-icon style="color: red" [icon]="faTrash" class="d-flex justify-content-center fa-2xl mb-3"></fa-icon>
+  <h2 mat-dialog-title class="d-flex justify-content-center">Es-tu sûr ?</h2>
+  <mat-dialog-content class="d-flex justify-content-center">
+      Veux-tu vraiment supprimer ce contenu ? Cette action est irréversible.
+  </mat-dialog-content>
+  <mat-dialog-actions class="d-flex justify-content-evenly">
+  <button class="cancel-button" (click)="cancel()">Annuler</button>
+  <button class="delete-button" (click)="confirm()">Supprimer</button>
+  </mat-dialog-actions>
+</div>

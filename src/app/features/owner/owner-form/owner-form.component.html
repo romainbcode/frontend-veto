@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center">
+  <form [formGroup]="myForm" class="w-50">
+    <div class="card-body">
+      <h5 class="card-title">Propriétaire</h5>
+      <div class="form-group">
+        <label for="nom">Nom</label>
+        <input type="text" class="form-control" id="nom" formControlName='nom'/>
+        <div *ngIf="myForm.get('nom')?.invalid && (myForm.get('nom')?.dirty || myForm.get('nom')?.touched)" class="alert alert-danger">
+          <div *ngIf="myForm.get('nom')?.errors?.['required']">Le nom est obligatoire</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="prenom">Prenom</label>
+        <input type="text" class="form-control" id="prenom" formControlName='prenom'/>
+        <div *ngIf="myForm.get('prenom')?.invalid && (myForm.get('prenom')?.dirty || myForm.get('prenom')?.touched)" class="alert alert-danger">
+          <div *ngIf="myForm.get('prenom')?.errors?.['required']">Le prénom est obligatoire</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="numero">Numéro</label>
+        <input type="text" class="form-control" id="numero" formControlName='numero'/>
+        <div *ngIf="myForm.get('numero')?.invalid && (myForm.get('numero')?.dirty || myForm.get('numero')?.touched)" class="alert alert-danger">
+          <div *ngIf="myForm.get('numero')?.errors?.['required']">Le numéro est obligatoire</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+          <label for="mail">Mail</label>
+          <input type="email" class="form-control" id="mail" formControlName='mail'/>
+          <div *ngIf="myForm.get('mail')?.invalid && (myForm.get('mail')?.dirty || myForm.get('mail')?.touched)" class="alert alert-danger">
+          </div>
+          <div *ngIf="myForm?.errors?.['required']" class="alert alert-danger">Le statut est obligatorie</div>
+      </div>
+
+      
+    </div>
+  </form>
+</div>
