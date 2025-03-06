@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { mergeMap, of, tap } from 'rxjs';
-import { PatientService } from '../../patient/patient.service';
 import { OwnerService } from '../owner.service';
 
 @Component({

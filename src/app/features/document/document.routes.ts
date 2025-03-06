@@ -1,6 +1,5 @@
 import { Routes } from "@angular/router";
-import { PatientFicheComponent } from "../patient/patient-fiche/patient-fiche.component";
-import { PatientFormComponent } from "../patient/patient-form/patient-form.component";
+import { ConsultationFormComponent } from "../consultation/patient-form/consultation-form.component";
 
 export const DOCUMENT_ROUTES: Routes = [
     {
@@ -9,15 +8,15 @@ export const DOCUMENT_ROUTES: Routes = [
     },    
     {
         path: 'create',
-        component: PatientFormComponent
+        component: ConsultationFormComponent
     },
     {
         path: 'edit/:id',
-        component: PatientFormComponent
+        component: ConsultationFormComponent
     },
     {
         path: ':id',
-        component: PatientFicheComponent
+        component: ConsultationFormComponent
     },
 
 ]

@@ -2,17 +2,17 @@ import { Component } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { mergeMap, of, tap } from 'rxjs';
-import { PatientService } from '../patient.service';
+import { ConsultationService } from '../consultation.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-patient-fiche',
+  selector: 'app-consultation-fiche',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, CommonModule],
-  templateUrl: './patient-fiche.component.html',
+  templateUrl: './consultation-fiche.component.html',
 })
-export class PatientFicheComponent {
-  constructor(protected patientService: PatientService, private route: ActivatedRoute){}
+export class ConsultationFicheComponent {
+  constructor(protected consultationService: ConsultationService, private route: ActivatedRoute){}
 
   ngOnInit(): void {
     this.route.params.pipe(
@@ -31,7 +31,7 @@ export class PatientFicheComponent {
   });
 
   protected loadPatientFormById(id: number) {
-    return this.patientService.findPatientById(id)
+    return this.consultationService.findConsultationById(id)
       .pipe(
         tap(res => {
           this.myForm.patchValue({

@@ -1,0 +1,82 @@
+<div class="border rounded d-inline-flex">
+    <div class="d-flex align-items-center px-4 py-2">
+        <div class="py-2 px-3 rounded me-4" style="background-color: #d8ffd9">    
+            <fa-icon class="fa-2xl" style="color: green" [icon]="faCheck"></fa-icon>
+        </div>
+        <div class="d-flex flex-column justify-content-center">
+            <p style="font-size: 14px;" class="fw-light m-0 p-0 text-center">Consultation {{consultationsFinishedCount > 1 ? 'terminées' : 'terminée'}}</p>
+            <p class="fs-2 fw-bold m-0 p-0">{{consultationsFinishedCount}}</p>
+        </div>
+    </div>
+</div>
+
+<div class="border rounded d-inline-flex">
+    <div class="d-flex align-items-center px-4 py-2">
+        <div class="py-2 px-3 rounded me-4" style="background-color: #ededed">    
+            <fa-icon class="fa-2xl" style="color: grey" [icon]="faHourglass"></fa-icon>
+        </div>
+        <div class="d-flex flex-column justify-content-center">
+            <p style="font-size: 14px;" class="fw-light m-0 p-0 text-center">Consultation {{consultationsPendingCount > 1 ? 'en attentes' : 'en attente'}}</p>
+            <p class="fs-2 fw-bold m-0 p-0">{{consultationsPendingCount}}</p>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex flex-column align-items-center">
+    <div class="container w-75">
+    <table mat-table [dataSource]="consultationService.consultations()" style="table-layout: auto; width: 100%;">
+        <ng-container matColumnDef="Type">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let patient"> 
+                <ng-container [ngSwitch]="patient.type.id">
+                    <img *ngSwitchCase="1" src="./assets/tete-de-chien.png" alt="Chien" class="img-logo" >
+                    <img *ngSwitchCase="2" src="./assets/tete-de-chat.png" alt="Chat" class="img-logo">
+                    <img *ngSwitchCase="3" src="./assets/cameleon.png" alt="NAC" class="img-logo">
+                    <span *ngSwitchDefault>Autre</span>
+                </ng-container>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="Statut">
+            <th mat-header-cell *matHeaderCellDef>Statut</th>
+            <td mat-cell *matCellDef="let patient">
+                <ng-container [ngSwitch]="patient.statut.id">
+                    <span *ngSwitchCase="1" class="badge bg-success">{{patient.statut.label}}</span>
+                    <span *ngSwitchCase="2" class="badge bg-secondary">{{patient.statut.label}}</span>
+                    <span *ngSwitchCase="3" class="badge bg-danger">{{patient.statut.label}}</span>
+                    <span *ngSwitchDefault class="badge inconnu">Inconnu</span>
+                </ng-container>
+                </td>
+        </ng-container>
+        <ng-container matColumnDef="Nom">
+            <th mat-header-cell *matHeaderCellDef>Nom</th>
+            <td mat-cell *matCellDef="let patient"> {{ patient.nom }}</td>
+        </ng-container>
+        <ng-container matColumnDef="Age">
+            <th mat-header-cell *matHeaderCellDef>Age</th>
+            <td mat-cell *matCellDef="let patient"> {{ patient.age }}</td>
+        </ng-container>
+        <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let patient">
+                <button class="btn btn-danger" (click)="deleteConsultation(patient.id); $event.stopPropagation()">
+                    <fa-icon style="color: white" [icon]="faTrash"></fa-icon>
+                </button>
+                <button class="btn btn-primary" (click)="goToEditConsultation(patient.id); $event.stopPropagation()">
+                    <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
+                </button>
+                <button *ngIf="patient.statut.id !== 1" class="btn btn-success" (click)="completeConsultation(patient.id); $event.stopPropagation()">
+                    <span class="pe-2">Terminer la consultation</span>
+                    <fa-icon style="color: white" [icon]="faCheck"></fa-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="goToConsultation(row.id)"></tr>
+    </table>
+    </div>
+    
+</div>
+<div class="d-flex justify-content-center align-items-center">
+    <button class="btn btn-primary" (click)="goToCreateConsultation()">Ajouter un patient</button>
+</div>

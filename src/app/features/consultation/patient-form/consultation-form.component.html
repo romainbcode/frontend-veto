@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center flex-column">
+  <form [formGroup]="myForm" class="w-50">
+    <div class="card-body">
+      <h5 class="card-title">Patient</h5>
+      <div class="form-group">
+        <label for="nom">Nom<span style="color: red;">*</span></label>
+        <input type="text" class="form-control" id="nom" formControlName='nom'/>
+        <div *ngIf="nomFc?.touched">
+          <div *ngIf="nomFc?.errors?.['required']" class="alert alert-danger">Le nom est obligatoire</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age</label>
+        <input type="number" class="form-control" id="age" formControlName='age'/>
+        
+      </div>
+      <div class="form-group">
+        <label for="type">Type<span style="color: red;">*</span></label>
+        <select class="form-select" formControlName='type'>
+            <option *ngFor="let type of types" [ngValue]="type.id">{{type.libelle}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+          <label for="statut">Statut<span style="color: red;">*</span></label>
+          <input type="text" class="form-control" id="statut" formControlName='statut'/>
+          <div *ngIf="statutFc?.touched">
+            <div *ngIf="statutFc?.errors?.['required']" class="alert alert-danger">Le statut est obligatoire</div>
+          </div>
+      </div>
+    </div>
+  </form>
+  <div class="d-flex justify-content-end w-50">
+    <button class="d-flex justify-content-center align-items-center btn btn-success" (click)="onSubmit()">
+      Ajouter une consultation
+    </button>
+  </div>
+</div>

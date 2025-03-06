@@ -1,9 +1,9 @@
 <div class="d-flex flex-column justify-content-center w-50"> 
   <div class="d-flex flex-row">
-    <ng-container [ngSwitch]="this.myForm.get('type')?.value">
-      <img *ngSwitchCase="'Chien'" src="./assets/tete-de-chien.png" alt="Chien" class="img">
-      <img *ngSwitchCase="'Chat'" src="./assets/tete-de-chat.png" alt="Chat" class="img">
-      <img *ngSwitchCase="'NAC'" src="./assets/cameleon.png" alt="NAC" class="img">
+    <ng-container [ngSwitch]="this.myForm.get('type')?.value.id">
+      <img *ngSwitchCase="1" src="./assets/tete-de-chien.png" alt="Chien" class="img">
+      <img *ngSwitchCase="2" src="./assets/tete-de-chat.png" alt="Chat" class="img">
+      <img *ngSwitchCase="3" src="./assets/cameleon.png" alt="NAC" class="img">
       <span *ngSwitchDefault>Autre</span>
     </ng-container>
     
@@ -28,8 +28,8 @@
             <label for="statut">Statut</label>
             <input type="text" class="form-control" id="statut" formControlName='statut'/>
             <div *ngIf="myForm.get('statut')?.invalid && (myForm.get('statut')?.dirty || myForm.get('statut')?.touched)" class="alert alert-danger">
+              <div *ngIf="myForm?.errors?.['required']" class="alert alert-danger">Le statut est obligatorie</div>
             </div>
-            <div *ngIf="myForm?.errors?.['required']" class="alert alert-danger">Le statut est obligatorie</div>
         </div>
       </div>
     </form>

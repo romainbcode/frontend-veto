@@ -1,9 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
-import { PatientComponent } from './features/patient/patient.component';
-import { OwnerComponent } from './features/owner/owner.component';
 import { SurgeryComponent } from './features/surgery/surgery.component';
-import { DocumentComponent } from './features/document/document.component';
 
 export const routes: Routes = [
     {
@@ -12,8 +9,8 @@ export const routes: Routes = [
         //loadComponent: () => import ('./features/home/home.component').then(m => m.HomeComponent)
     },
     {
-        path: 'patient',
-        loadChildren: () => import('./features/patient/patient.routes').then(m => m.PATIENT_ROUTES)
+        path: 'consultation',
+        loadChildren: () => import('./features/consultation/consultation.routes').then(m => m.CONSULTATION_ROUTES)
     },
     {
         path: 'owner',
