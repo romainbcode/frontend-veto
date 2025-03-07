@@ -1,12 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { DialogConfirmationDeleteComponent } from '../../shared/dialog/dialog-confirmation-delete/dialog-confirmation-delete.component';
 import { DocumentService } from './document.service';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DocumentFormComponent } from './document-form/document-form.component';
+import { DocumentFicheComponent } from './document-fiche/document-fiche.component';
 
 @Component({
   selector: 'app-document',
@@ -21,6 +23,7 @@ constructor(protected documentService: DocumentService, private router: Router){
 
   faTrash = faTrash;
   faEdit = faEdit;
+  faPlus=faPlus;
 
   displayedColumns: string[] = ['Titre', 'Type', 'Actions']
 
@@ -36,15 +39,23 @@ constructor(protected documentService: DocumentService, private router: Router){
     });
   }
 
-  goToEditDocument(id: number) {
-    this.router.navigate(['/document/edit/' + id])
+  createDocument(): void {
+    this.dialog.open(DocumentFormComponent, {
+      width: '500px',
+    });
   }
 
-  goToCreateDocument() {
-    this.router.navigate(['/document/create'])
+  editDocument(id: number): void {
+    this.dialog.open(DocumentFormComponent, {
+      width: '500px',
+      data: {id: id}
+    });
   }
 
-  goToDocument(id: number) {
-    this.router.navigate(['/document/' + id])
-  }
+  showDocument(id: number): void {
+    this.dialog.open(DocumentFicheComponent, {
+      width: '500px',
+      data: {id: id}
+    });
+  } 
 }

@@ -3,16 +3,26 @@ import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faTrash, faEdit, faCheck, faHourglass } from '@fortawesome/free-solid-svg-icons';
-import { MatDialog } from '@angular/material/dialog';
+import { faTrash, faEdit, faCheck, faHourglass, faEllipsisVertical, faPlus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { DialogConfirmationDeleteComponent } from '../../shared/dialog/dialog-confirmation-delete/dialog-confirmation-delete.component'; 
 import { ConsultationService } from './consultation.service';
 import { DialogConfirmationValidateComponent } from '../../shared/dialog/dialog-confirmation-validate/dialog-confirmation-validate.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
+import { ConsultationFormComponent } from './patient-form/consultation-form.component';
+import {
+  MatDialog,
+  MatDialogModule,
+  
+} from '@angular/material/dialog';
+import { ConsultationFicheComponent } from './patient-fiche/consultation-fiche.component';
+import { FormsModule } from '@angular/forms';
+import { MatSortModule } from '@angular/material/sort';
 
 @Component({
   selector: 'app-consultation',
   standalone: true,
-  imports: [MatTableModule, CommonModule, FontAwesomeModule],
+  imports: [MatTableModule, CommonModule, FontAwesomeModule, MatMenuModule, MatButtonModule, MatDialogModule, FormsModule, MatSortModule],
   templateUrl: './consultation.component.html',
 })
 export class ConsultationComponent {
@@ -24,8 +34,18 @@ export class ConsultationComponent {
   faEdit = faEdit;
   faCheck = faCheck;
   faHourglass = faHourglass;
+  faPlus=faPlus;
+  faEllipsisVertical=faEllipsisVertical;
+  faMagnifyingGlass=faMagnifyingGlass;
 
-  displayedColumns: string[] = ['Type', 'Statut', 'Nom', 'Age',  'Actions']
+  displayedColumns: string[] = ['Type', 'Statut', 'Nom', 'Age',  'Actions'];
+
+  searchTerm: string = '';
+
+  filterConsultations() {
+    console.log("in")
+    this.consultationService.findConsultationWithFilter(this.searchTerm);
+  }
 
   deleteConsultation(id: number): void {
     const dialogRef = this.dialog.open(DialogConfirmationDeleteComponent, {
@@ -36,6 +56,30 @@ export class ConsultationComponent {
       if (result) this.consultationService.deleteConsultationById(id).subscribe();
     });
   }
+
+  createConsultation(): void {
+    this.dialog.open(ConsultationFormComponent, {
+      width: '500px',
+    });
+
+    /*dialogRef.afterClosed().subscribe(result => {
+      if (result) this.consultationService.createConsultation(id).subscribe();
+    });*/// a vérieri ca refraiche surement deja avec le router.navigate dans l'enfant
+  }
+
+  editConsultation(id: number): void {
+    this.dialog.open(ConsultationFormComponent, {
+      width: '500px',
+      data: {id: id}
+    });
+  }
+
+  showConsultation(id: number): void {
+    this.dialog.open(ConsultationFicheComponent, {
+      width: '500px',
+      data: {id: id}
+    });
+  } 
 
   completeConsultation(id: number): void {
     const dialogRef = this.dialog.open(DialogConfirmationValidateComponent, {
@@ -55,17 +99,5 @@ export class ConsultationComponent {
   get consultationsPendingCount() {
     return this.consultationService.consultations().filter((consultation) => consultation.type.id === 2)
     .length;
-  }
-
-  goToEditConsultation(id: number) {
-    this.router.navigate(['/consultation/edit/' + id])
-  }
-
-  goToCreateConsultation() {
-    this.router.navigate(['/consultation/create'])
-  }
-
-  goToConsultation(id: number) {
-    this.router.navigate(['/consultation/' + id])
   }
 }

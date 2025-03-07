@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { mergeMap, of, tap } from 'rxjs';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { tap } from 'rxjs';
 import { ConsultationService } from '../consultation.service';
 import { CommonModule } from '@angular/common';
 import {
@@ -10,32 +10,20 @@ import {
   UntypedFormControl,
   Validators,
 } from '@angular/forms';
+import {
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-consultation-form',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, MatDialogModule],
   templateUrl: './consultation-form.component.html',
 })
 export class ConsultationFormComponent implements OnInit {
-  constructor(
-    protected consultationService: ConsultationService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
-
-  ngOnInit(): void {
-    this.route.params
-      .pipe(
-        mergeMap((params) => {
-          return params['id']
-            ? this.loadPatientFormById(params['id'])
-            : of(null);
-        })
-      )
-      .subscribe();
-  }
-
+  
   myForm = new UntypedFormGroup({
     nom: new UntypedFormControl('', [Validators.required]),
     age: new UntypedFormControl('', [Validators.required]),
@@ -48,6 +36,28 @@ export class ConsultationFormComponent implements OnInit {
     { id: 2, libelle: 'Chat' },
     { id: 3, libelle: 'NAC' }
   ];
+
+  constructor(
+    protected consultationService: ConsultationService,
+    private router: Router,
+    private dialogRef: MatDialogRef<ConsultationFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+  }
+
+  ngOnInit(): void {
+    if (this.data?.id) {
+      this.loadPatientFormById(this.data.id).subscribe();
+    }
+  }
+
+  cancel(): void {
+    this.dialogRef.close(false)
+  }
+
+  confirm(): void {
+    this.dialogRef.close(true)
+  }
 
   protected loadPatientFormById(id: number) {
     return this.consultationService.findConsultationById(id).pipe(

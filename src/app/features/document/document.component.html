@@ -1,5 +1,12 @@
-<button class="btn btn-primary" (click)="goToCreateDocument()">Ajouter un document</button>
+<div class="p-3">
 
+<div class="d-flex justify-content-end align-items-center">
+  
+  <button class="btn btn-dark" (click)="createDocument()">
+      <fa-icon class="me-2" [icon]="faPlus"></fa-icon>
+      <span>Ajouter un document</span>
+  </button>
+</div>
 <table mat-table [dataSource]="documentService.documents()">
 
     <ng-container matColumnDef="Titre">
@@ -17,12 +24,13 @@
             <button class="btn btn-danger" (click)="deleteDocument(document.id); $event.stopPropagation()">
                 <fa-icon style="color: white" [icon]="faTrash"></fa-icon>
             </button>
-            <button class="btn btn-primary" (click)="goToEditDocument(document.id); $event.stopPropagation()">
+            <button class="btn btn-primary" (click)="editDocument(document.id); $event.stopPropagation()">
                 <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
             </button>
         </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="goToDocument(row.id)"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showDocument(row.id)"></tr>
 </table>
+</div>

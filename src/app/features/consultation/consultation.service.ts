@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { Observable, tap, pipe, of, mergeMap } from 'rxjs';
+import { Observable, tap, pipe, of, mergeMap, filter } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConsultationService {
   consultations = signal<any[]>([]);
+  originalConsultations = signal<any[]>([]);
 
   constructor(private httpClient: HttpClient) {
     this.reloadConsultations().subscribe();
@@ -41,7 +42,10 @@ export class ConsultationService {
 
   reloadConsultations(): Observable<any[]> {
     return this.getConsultations().pipe(
-      tap((consultations) => this.consultations.set(consultations))
+      tap((consultations) => {
+        this.consultations.set(consultations);
+        this.originalConsultations.set(consultations); // Sauvegarde
+      })
     );
   }
 
@@ -54,6 +58,23 @@ export class ConsultationService {
       age: 24,
       type: { id: 1, label: 'Chien' },
     });
+  }
+
+  findConsultationWithFilter(filterValue: string): any[] {
+    if (!filterValue) {
+      this.consultations.set(this.originalConsultations());
+      return this.consultations();
+    }
+
+    const filteredConsultations = this.originalConsultations().filter((consultation) => 
+      consultation.nom.toLowerCase().includes(filterValue.toLowerCase()) ||
+      consultation.age.toString().includes(filterValue) ||
+      consultation.statut.label.toLowerCase().includes(filterValue.toLowerCase()) ||
+      consultation.type.label.toLowerCase().includes(filterValue.toLowerCase())
+    );
+  
+    this.consultations.set(filteredConsultations);
+    return this.consultations();
   }
 
   deleteConsultationById(id: number): Observable<any[]> {

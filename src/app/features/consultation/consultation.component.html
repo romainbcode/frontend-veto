@@ -1,32 +1,48 @@
-<div class="border rounded d-inline-flex">
-    <div class="d-flex align-items-center px-4 py-2">
-        <div class="py-2 px-3 rounded me-4" style="background-color: #d8ffd9">    
-            <fa-icon class="fa-2xl" style="color: green" [icon]="faCheck"></fa-icon>
+<div class="p-3">
+    <div class="d-flex justify-content-center mb-4">
+        <div class="border rounded d-inline-flex me-5">
+            <div class="d-flex align-items-center px-4 py-2">
+                <div class="py-2 px-3 rounded me-4" style="background-color: #d8ffd9">    
+                    <fa-icon class="fa-2xl" style="color: green" [icon]="faCheck"></fa-icon>
+                </div>
+                <div class="d-flex flex-column justify-content-center">
+                    <p style="font-size: 14px;" class="fw-light m-0 p-0 text-center">Consultation {{consultationsFinishedCount > 1 ? 'terminées' : 'terminée'}}</p>
+                    <p class="fs-2 fw-bold m-0 p-0">{{consultationsFinishedCount}}</p>
+                </div>
+            </div>
         </div>
-        <div class="d-flex flex-column justify-content-center">
-            <p style="font-size: 14px;" class="fw-light m-0 p-0 text-center">Consultation {{consultationsFinishedCount > 1 ? 'terminées' : 'terminée'}}</p>
-            <p class="fs-2 fw-bold m-0 p-0">{{consultationsFinishedCount}}</p>
+
+        <div class="border rounded d-inline-flex">
+            <div class="d-flex align-items-center px-4 py-2">
+                <div class="py-2 px-3 rounded me-4" style="background-color: #ededed">    
+                    <fa-icon class="fa-2xl" style="color: grey" [icon]="faHourglass"></fa-icon>
+                </div>
+                <div class="d-flex flex-column justify-content-center">
+                    <p style="font-size: 14px;" class="fw-light m-0 p-0 text-center">Consultation {{consultationsPendingCount > 1 ? 'en attentes' : 'en attente'}}</p>
+                    <p class="fs-2 fw-bold m-0 p-0">{{consultationsPendingCount}}</p>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="border rounded d-inline-flex">
-    <div class="d-flex align-items-center px-4 py-2">
-        <div class="py-2 px-3 rounded me-4" style="background-color: #ededed">    
-            <fa-icon class="fa-2xl" style="color: grey" [icon]="faHourglass"></fa-icon>
+    <div class="d-flex justify-content-end align-items-center">
+        <div class="d-flex align-items-center input-group me-2" style="width: 20%;">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+                </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Rechercher..." [(ngModel)]="searchTerm" (ngModelChange)="filterConsultations()">
         </div>
-        <div class="d-flex flex-column justify-content-center">
-            <p style="font-size: 14px;" class="fw-light m-0 p-0 text-center">Consultation {{consultationsPendingCount > 1 ? 'en attentes' : 'en attente'}}</p>
-            <p class="fs-2 fw-bold m-0 p-0">{{consultationsPendingCount}}</p>
-        </div>
+        <button class="btn btn-dark" (click)="createConsultation()">
+            <fa-icon class="me-2" [icon]="faPlus"></fa-icon>
+            <span>Ajouter une consultation</span>
+        </button>
     </div>
-</div>
 
-<div class="d-flex flex-column align-items-center">
-    <div class="container w-75">
-    <table mat-table [dataSource]="consultationService.consultations()" style="table-layout: auto; width: 100%;">
+    <table mat-table matSort [dataSource]="consultationService.consultations()" style="table-layout: auto; width: 100%;">
         <ng-container matColumnDef="Type">
-            <th mat-header-cell *matHeaderCellDef></th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
             <td mat-cell *matCellDef="let patient"> 
                 <ng-container [ngSwitch]="patient.type.id">
                     <img *ngSwitchCase="1" src="./assets/tete-de-chien.png" alt="Chien" class="img-logo" >
@@ -37,7 +53,7 @@
             </td>
         </ng-container>
         <ng-container matColumnDef="Statut">
-            <th mat-header-cell *matHeaderCellDef>Statut</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Statut</th>
             <td mat-cell *matCellDef="let patient">
                 <ng-container [ngSwitch]="patient.statut.id">
                     <span *ngSwitchCase="1" class="badge bg-success">{{patient.statut.label}}</span>
@@ -48,35 +64,36 @@
                 </td>
         </ng-container>
         <ng-container matColumnDef="Nom">
-            <th mat-header-cell *matHeaderCellDef>Nom</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
             <td mat-cell *matCellDef="let patient"> {{ patient.nom }}</td>
         </ng-container>
         <ng-container matColumnDef="Age">
-            <th mat-header-cell *matHeaderCellDef>Age</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Age</th>
             <td mat-cell *matCellDef="let patient"> {{ patient.age }}</td>
         </ng-container>
         <ng-container matColumnDef="Actions">
-            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let patient">
-                <button class="btn btn-danger" (click)="deleteConsultation(patient.id); $event.stopPropagation()">
-                    <fa-icon style="color: white" [icon]="faTrash"></fa-icon>
+                <button mat-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
+                    <fa-icon style="color: black" [icon]="faEllipsisVertical"></fa-icon>
                 </button>
-                <button class="btn btn-primary" (click)="goToEditConsultation(patient.id); $event.stopPropagation()">
-                    <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
-                </button>
-                <button *ngIf="patient.statut.id !== 1" class="btn btn-success" (click)="completeConsultation(patient.id); $event.stopPropagation()">
-                    <span class="pe-2">Terminer la consultation</span>
-                    <fa-icon style="color: white" [icon]="faCheck"></fa-icon>
-                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="completeConsultation(patient.id); $event.stopPropagation()">
+                        <fa-icon class="me-2" style="color: green" [icon]="faCheck"></fa-icon>
+                        <span>Terminer la consultation</span>
+                    </button>
+                    <button mat-menu-item (click)="deleteConsultation(patient.id); $event.stopPropagation()">
+                        <fa-icon class="me-2" style="color: red" [icon]="faTrash"></fa-icon>
+                        <span>Supprimer</span>
+                    </button>
+                    <button mat-menu-item (click)="editConsultation(patient.id); $event.stopPropagation()">
+                        <fa-icon class="me-2" style="color: blue" [icon]="faEdit"></fa-icon>
+                        <span>Modifier</span>
+                    </button>
+                </mat-menu>
             </td>
         </ng-container>
-
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="goToConsultation(row.id)"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showConsultation(row.id)"></tr>
     </table>
-    </div>
-    
-</div>
-<div class="d-flex justify-content-center align-items-center">
-    <button class="btn btn-primary" (click)="goToCreateConsultation()">Ajouter un patient</button>
 </div>

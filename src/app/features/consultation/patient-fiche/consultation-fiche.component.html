@@ -1,43 +1,41 @@
-<div class="d-flex flex-column justify-content-center w-50"> 
-  <div class="d-flex flex-row">
-    <ng-container [ngSwitch]="this.myForm.get('type')?.value.id">
-      <img *ngSwitchCase="1" src="./assets/tete-de-chien.png" alt="Chien" class="img">
-      <img *ngSwitchCase="2" src="./assets/tete-de-chat.png" alt="Chat" class="img">
-      <img *ngSwitchCase="3" src="./assets/cameleon.png" alt="NAC" class="img">
-      <span *ngSwitchDefault>Autre</span>
-    </ng-container>
-    
-    <form [formGroup]="myForm" class="w-50">
-      <div class="card-body">
-        <h5 class="card-title">Patient</h5>
-        <div class="form-group">
-          <label>Nom</label>
-          <input type="text" class="form-control" id="nom" formControlName='nom'/>
-          <div *ngIf="myForm.get('nom')?.invalid && (myForm.get('nom')?.dirty || myForm.get('nom')?.touched)" class="alert alert-danger">
-            <div *ngIf="myForm.get('poids')?.errors?.['required']">Le nom est obligatoire</div>
+<div class="d-flex flex-row">
+  <form [formGroup]="myForm">
+    <div class="d-flex justify-content-between align-items-center">
+        <h4 mat-dialog-title>Détails de la consultation</h4>
+    <button class="btn" (click)="close()">
+      <fa-icon class="me-2" [icon]="faXmark"></fa-icon>
+    </button>
+  </div>
+    <div class="px-4 pb-4">
+      <div class="d-flex flex-row">
+        <ng-container [ngSwitch]="this.myForm.get('type')?.value.id">
+          <img *ngSwitchCase="1" src="./assets/tete-de-chien.png" alt="Chien" class="img">
+          <img *ngSwitchCase="2" src="./assets/tete-de-chat.png" alt="Chat" class="img">
+          <img *ngSwitchCase="3" src="./assets/cameleon.png" alt="NAC" class="img">
+          <span *ngSwitchDefault>Autre</span>
+        </ng-container>
+        <div class="d-flex flex-column justify-content-center">
+          <div class="d-flex flex-row">
+            <div class="form-group me-2">
+              <label>Nom</label>
+              <input type="text" class="form-control" id="nom" formControlName='nom'/>
+            </div>
+            <div class="form-group">
+              <label for="age">Age</label>
+              <input type="number" class="form-control" id="age" formControlName='age'/>
+            </div>
+          </div>
+          <div class="form-group">
+              <label for="statut">Statut</label>
+              <input type="text" class="form-control" id="statut" formControlName='statut'/>
           </div>
         </div>
-
+      </div>
         <div class="form-group">
-          <label for="age">Age</label>
-          <input type="number" class="form-control" id="age" formControlName='age'/>
-          
-        </div>
-
-        <div class="form-group">
-            <label for="statut">Statut</label>
-            <input type="text" class="form-control" id="statut" formControlName='statut'/>
-            <div *ngIf="myForm.get('statut')?.invalid && (myForm.get('statut')?.dirty || myForm.get('statut')?.touched)" class="alert alert-danger">
-              <div *ngIf="myForm?.errors?.['required']" class="alert alert-danger">Le statut est obligatorie</div>
-            </div>
+          <label for="statut">Informations complémentaires</label>
+          <input type="text" class="form-control" id="infosComp" formControlName="infosComp"/>
         </div>
       </div>
-    </form>
-  </div>
-  <div class="d-flex w-100">
-    <div class="form-group">
-      <label for="statut">Informations complémentaires</label>
-      <input type="text" class="form-control" id="infos-comp" formControlName="infos-comp"/>
-    </div>
-  </div>
+  </form>
 </div>
+  
