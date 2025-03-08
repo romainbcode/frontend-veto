@@ -38,12 +38,11 @@ export class ConsultationComponent {
   faEllipsisVertical=faEllipsisVertical;
   faMagnifyingGlass=faMagnifyingGlass;
 
-  displayedColumns: string[] = ['Type', 'Statut', 'Nom', 'Age',  'Actions'];
+  displayedColumns: string[] = ['Statut', 'Titre', 'Date', 'Animal', 'Veterinaire', 'TypeOperation', 'Actions'];
 
   searchTerm: string = '';
 
   filterConsultations() {
-    console.log("in")
     this.consultationService.findConsultationWithFilter(this.searchTerm);
   }
 

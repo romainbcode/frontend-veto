@@ -13,6 +13,10 @@ export const routes: Routes = [
         loadChildren: () => import('./features/consultation/consultation.routes').then(m => m.CONSULTATION_ROUTES)
     },
     {
+        path: 'animal',
+        loadChildren: () => import('./features/animal/animal.routes').then(m => m.ANIMAL_ROUTES)
+    },
+    {
         path: 'owner',
         loadChildren: () => import('./features/owner/owner.routes').then(m => m.OWNER_ROUTES)
     },
