@@ -35,7 +35,7 @@ export class AnimalComponent {
     faEllipsisVertical=faEllipsisVertical;
     faMagnifyingGlass=faMagnifyingGlass;
 
-    displayedColumns: string[] = ['Statut', 'Titre', 'Date', 'Animal', 'Veterinaire', 'TypeOperation', 'Actions'];
+    displayedColumns: string[] = ['Nom', 'DateNaissance', 'Type', 'Propriétaire', 'Actions'];
 
     searchTerm: string = '';
 
