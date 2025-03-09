@@ -1,6 +1,6 @@
 import { Routes } from "@angular/router";
-import { ConsultationFicheComponent } from "./patient-fiche/consultation-fiche.component";
-import { ConsultationFormComponent } from "./patient-form/consultation-form.component"; 
+import { ConsultationFicheComponent } from "./consultation-fiche/consultation-fiche.component";
+import { ConsultationFormComponent } from "./consultation-form/consultation-form.component"; 
 
 export const CONSULTATION_ROUTES: Routes = [
     {

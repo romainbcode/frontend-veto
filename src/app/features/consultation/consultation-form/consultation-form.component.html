@@ -1,0 +1,65 @@
+<form [formGroup]="myForm">
+  <h4 mat-dialog-title>Créer une consultation</h4>
+  <div class="p-4">
+    <div class="d-flex flex-row mb-2">
+      <div class="form-group w-50 me-2">
+        <label for="nom">Titre<span style="color: red;">*</span></label>
+        <input type="text" class="form-control" id="titre" formControlName='titre'/>
+        <div *ngIf="titreFc?.touched">
+          <div *ngIf="titreFc?.errors?.['required']" class="alert alert-danger">Le titre est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group w-50">
+        <label for="age">Date<span style="color: red;">*</span></label>
+        <input type="date" class="form-control" id="date" formControlName='date'/>
+      </div>
+    </div>
+    <div class="d-flex flex-row mb-2">
+      <div class="form-group w-50 me-2">
+        <label for="animal">Animal<span style="color: red;">*</span></label>
+        <select class="form-select" formControlName='animal'>
+            <option *ngFor="let animal of animalService.animaux()" [ngValue]="animal.id">
+              {{animal.nom}}
+            </option>
+        </select>
+      </div>
+      <div class="form-group w-50">
+        <label for="typeOperation">Type d'opération<span style="color: red;">*</span></label>
+        <select class="form-select" formControlName='typeOperation'>
+            <option *ngFor="let consultation of consultationService.typeConsultations()" [ngValue]="consultation.id">
+              <app-card-type-consultation [label]="consultation.label" [color]="consultation.color"/>
+            </option>
+        </select>
+      </div>
+    </div>
+    <div class="d-flex flex-row mb-2">
+      <div class="form-group w-50 me-2">
+        <label for="veterinarian">Vétérinaire<span style="color: red;">*</span></label>
+        <select class="form-select" formControlName='veterinarian'>
+            <option *ngFor="let vet of veterinarianService.vets()" [ngValue]="vet.id">
+              {{vet.prenom}} {{vet.nom}}
+            </option>
+        </select>
+      </div>
+      <div class="form-group w-50">
+        <label for="statut">Statut<span style="color: red;">*</span></label>
+        <select class="form-select" formControlName='statut'>
+          <option *ngFor="let statut of statuts" [ngValue]="statut.id">{{statut.libelle}}</option>
+        </select>
+        <div *ngIf="statutFc?.touched">
+          <div *ngIf="statutFc?.errors?.['required']" class="alert alert-danger">Le statut est obligatoire</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="comment">Commentaire</label>
+      <textarea class="form-control" id="comment" formControlName="comment" rows="3"></textarea>
+    </div>
+  </div>
+</form>
+<mat-dialog-actions class="d-flex flex-row justify-content-evenly">
+  <button class="cancel-button" (click)="cancel()">Annuler</button>
+  <button class="d-flex justify-content-center align-items-center btn btn-success" (click)="onSubmit()">
+    Ajouter une consultation
+  </button>
+</mat-dialog-actions>

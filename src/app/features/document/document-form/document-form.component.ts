@@ -3,7 +3,7 @@ import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, Reactive
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
-import { ConsultationFormComponent } from '../../consultation/patient-form/consultation-form.component';
+import { ConsultationFormComponent } from '../../consultation/consultation-form/consultation-form.component';
 import { DocumentService } from '../document.service';
 import { CommonModule } from '@angular/common';
 

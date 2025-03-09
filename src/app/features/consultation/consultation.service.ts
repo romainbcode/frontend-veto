@@ -9,8 +9,11 @@ export class ConsultationService {
   consultations = signal<any[]>([]);
   originalConsultations = signal<any[]>([]);
 
+  typeConsultations = signal<any[]>([]);
+
   constructor(private httpClient: HttpClient) {
     this.reloadConsultations().subscribe();
+    this.reloadTypeConsultations().subscribe();
   }
 
   getConsultations(): Observable<any[]> {
@@ -21,25 +24,27 @@ export class ConsultationService {
         titre: 'Dents',
         date: '08/03/2025',
         statut: { id: 1, libelle: 'Terminé' },
-        typeOperation: { id: 1, titre: 'Extraction dentaire', date: '03/03/2025', type: "Chirurgeries dentaires" },
+        typeOperation: { id: 1, label: 'Extraction dentaire', color: '#000', comment: 'Arracher des chicots'},
         animal: { id: 1, libelle: 'Chien', nom: 'Achil' },
         veterinarian: { id: 1, nom: 'Isnard', prenom: 'Zoé' }
       },
       {
-        id: 1,
+        id: 2,
         titre: 'Dents',
         date: '08/03/2025',
         statut: { id: 2, libelle: 'En attente' },
-        typeOperation: { id: 1, titre: 'Extraction dentaire', date: '03/03/2025', type: "Chirurgeries dentaires" },
+        typeOperation:{ id: 2, label: 'Dents de sagesse', color: '#000', comment: 'Arracher des chicots de sagesse'},
         animal: { id: 2, libelle: 'Chat', nom: 'Quentin' },
         veterinarian: { id: 2, nom: 'Pucholle', prenom: 'Alsexy' }
       },
       {
         id: 3,
+        titre: 'Dents',
         statut: { id: 3, libelle: 'Annulé' },
-        nom: 'Quentin',
-        age: 6,
-        type: { id: 3, libelle: 'NAC' },
+        date: '08/03/2025',
+        typeOperation:{ id: 2, label: 'Dents de sagesse', color: '#000', comment: 'Arracher des chicots de sagesse'},
+        animal: { id: 3, libelle: 'NAC', nom: 'POL' },
+        veterinarian: { id: 2, nom: 'Pucholle', prenom: 'Alsexy' }
       },
     ]);
   }
@@ -57,10 +62,12 @@ export class ConsultationService {
     //return this.httpClient.request<any>('GET', '/patient/' + id);
     return of({
       id: 1,
+      titre: 'Dents',
+      date: '08/03/2025',
       statut: { id: 1, libelle: 'Terminé' },
-      nom: 'Achil',
-      age: 24,
-      type: { id: 1, libelle: 'Chien' },
+      typeOperation:{ id: 2, label: 'Dents de sagesse', color: '#000', comment: 'Arracher des chicots de sagesse'},
+      animal: { id: 1, libelle: 'Chien', nom: 'Achil', dateNaissance: '07/03/2024'},
+      veterinarian: { id: 1, nom: 'Isnard', prenom: 'Zoé' }
     });
   }
 
@@ -105,5 +112,49 @@ export class ConsultationService {
     return this.httpClient
     .request<any[]>('PUT', '/consultation/' + id)
     .pipe(mergeMap(() => this.reloadConsultations()))
+  }
+
+  findTypeConsultationById(id: number): Observable<any> {
+    //return this.httpClient.request<any>('GET', '/patient/' + id);
+    return of({
+      id: 1,
+      label: 'Extraction dentaire',
+      color: '#FFF',
+      comment: 'Arracher des chicots'
+    },);
+  }
+  
+  createTypeConsultation(typeConsultation: any): Observable<any[]> {
+    const createTypeConsultationDto = {};
+
+    return this.httpClient
+      .request('POST', '/typeConsultation', { body: createTypeConsultationDto })
+      .pipe(mergeMap(() => this.reloadTypeConsultations()));
+  }
+
+  getTypeConsultations(): Observable<any[]> {
+    //return this.httpClient.request<any[]>('GET', '/patient');
+    return of([
+      {
+        id: 1,
+        label: 'Extraction dentaire',
+        color: '#FFF',
+        comment: 'Arracher des chicots'
+      },
+      {
+        id: 2,
+        label: 'Dents de sagesse',
+        color: '#FFF',
+        comment: 'Arracher des chicots de sagesse'
+      },
+    ]);
+  }
+
+  reloadTypeConsultations(): Observable<any[]> {
+    return this.getTypeConsultations().pipe(
+      tap((typeConsultations) => {
+        this.typeConsultations.set(typeConsultations);
+      })
+    );
   }
 }

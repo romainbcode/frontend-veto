@@ -16,14 +16,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 export class ConsultationFicheComponent implements OnInit {
   faXmark=faXmark;
 
-  myForm = new UntypedFormGroup({
-    nom: new UntypedFormControl('', [Validators.required]),
-    age: new UntypedFormControl('', [Validators.required]),
-    type: new UntypedFormControl('', [Validators.required]),
-    statut: new UntypedFormControl('', [Validators.required]),
-    infosComp: new UntypedFormControl('', [Validators.required]),
-
-  });
+  consultation = {
+    titre: '',
+    statut: '',
+    date: '',
+    animal: {nom: '', dateNaissance: ''},
+    typeOperation: {titre: ''},
+    veterinarian: {nom: '', prenom: ''},
+    comment: '',
+  }
 
   constructor(
     protected consultationService: ConsultationService, 
@@ -39,15 +40,16 @@ export class ConsultationFicheComponent implements OnInit {
     return this.consultationService.findConsultationById(id)
       .pipe(
         tap(res => {
-          this.myForm.patchValue({
-            'nom': res.nom,
-            'age': res.age,
-            'type': res.type,
-            'statut': res.statut,
-            'infosComp': ''
-          })
-          this.myForm.disable();
-          this.myForm.get('infosComp')?.enable();
+          console.log(res)
+          this.consultation = {
+            titre: res.titre,
+            statut: res.statut.id,
+            date: res.date,
+            animal: res.animal,
+            typeOperation: res.typeOperation,
+            veterinarian: res.veterinarian,
+            comment: res.comment,
+          }
         })
       );
   }

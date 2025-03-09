@@ -3,7 +3,7 @@ import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, Reactive
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { tap } from 'rxjs';
-import { ConsultationFicheComponent } from '../../consultation/patient-fiche/consultation-fiche.component';
+import { ConsultationFicheComponent } from '../../consultation/consultation-fiche/consultation-fiche.component';
 import { DocumentService } from '../document.service';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';

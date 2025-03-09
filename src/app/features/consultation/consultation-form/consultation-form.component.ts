@@ -18,11 +18,12 @@ import {
 import { AnimalService } from '../../animal/animal.service';
 import { VeterinarianService } from '../../veterinarian/veterinarian.service';
 import { SurgeryService } from '../../surgery/surgery.service';
+import { CardTypeConsultationComponent } from '../../../shared/card/card-type-consultation/card-type-consultation.component';
 
 @Component({
   selector: 'app-consultation-form',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, MatDialogModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, MatDialogModule, CardTypeConsultationComponent],
   templateUrl: './consultation-form.component.html',
 })
 export class ConsultationFormComponent implements OnInit {
@@ -30,7 +31,7 @@ export class ConsultationFormComponent implements OnInit {
   myForm = new UntypedFormGroup({
     titre: new UntypedFormControl('', [Validators.required]),
     statut: new UntypedFormControl('', [Validators.required]),
-    dateNaissance: new UntypedFormControl('', [Validators.required]),
+    date: new UntypedFormControl('', [Validators.required]),
     animal: new UntypedFormControl('', [Validators.required]),
     typeOperation: new UntypedFormControl('', [Validators.required]),
     veterinarian: new UntypedFormControl('', [Validators.required]),
@@ -61,8 +62,6 @@ export class ConsultationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("iiiijiijijjiijij")
-    console.log(this.data)
     if (this.data?.id) {
       this.loadPatientFormById(this.data.id).subscribe();
     } else {
@@ -84,10 +83,13 @@ export class ConsultationFormComponent implements OnInit {
     return this.consultationService.findConsultationById(id).pipe(
       tap((res) => {
         this.myForm.patchValue({
-          nom: res.nom,
-          age: res.age,
-          type: res.type.id,
-          statut: res.statut,
+          titre: res.titre,
+          statut: res.statut.id,
+          date: res.date,
+          animal: res.animal.id,
+          typeOperation: res.typeOperation.id,
+          veterinarian: res.veterinarian.id,
+          comment: res.comment,
         });
       })
     );

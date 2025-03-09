@@ -10,20 +10,22 @@ import { DialogConfirmationValidateComponent } from '../../shared/dialog/dialog-
 import { CardVetComponent } from '../../shared/card/card-vet/card-vet.component';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
-import { ConsultationFormComponent } from './patient-form/consultation-form.component';
+import { ConsultationFormComponent } from './consultation-form/consultation-form.component';
 import {
   MatDialog,
   MatDialogModule,
   
 } from '@angular/material/dialog';
-import { ConsultationFicheComponent } from './patient-fiche/consultation-fiche.component';
+import { ConsultationFicheComponent } from './consultation-fiche/consultation-fiche.component';
 import { FormsModule } from '@angular/forms';
 import { MatSortModule } from '@angular/material/sort';
+import { ConsultationTypeForm } from './consultation-type-form/consultation-type-form.component';
+import { CardTypeConsultationComponent } from '../../shared/card/card-type-consultation/card-type-consultation.component';
 
 @Component({
   selector: 'app-consultation',
   standalone: true,
-  imports: [MatTableModule, CommonModule, FontAwesomeModule, MatMenuModule, MatButtonModule, MatDialogModule, FormsModule, MatSortModule, CardVetComponent],
+  imports: [MatTableModule, CommonModule, FontAwesomeModule, MatMenuModule, MatButtonModule, MatDialogModule, FormsModule, MatSortModule, CardVetComponent, CardTypeConsultationComponent],
   templateUrl: './consultation.component.html',
 })
 export class ConsultationComponent {
@@ -54,6 +56,12 @@ export class ConsultationComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) this.consultationService.deleteConsultationById(id).subscribe();
+    });
+  }
+
+  createTypeConsultation(): void {
+    this.dialog.open(ConsultationTypeForm, {
+      width: '500px',
     });
   }
 
