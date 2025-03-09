@@ -20,26 +20,26 @@ export class ConsultationService {
         id: 1,
         titre: 'Dents',
         date: '08/03/2025',
-        statut: { id: 1, label: 'Terminé' },
+        statut: { id: 1, libelle: 'Terminé' },
         typeOperation: { id: 1, titre: 'Extraction dentaire', date: '03/03/2025', type: "Chirurgeries dentaires" },
-        animal: { id: 1, label: 'Chien', nom: 'Achil' },
+        animal: { id: 1, libelle: 'Chien', nom: 'Achil' },
         veterinarian: { id: 1, nom: 'Isnard', prenom: 'Zoé' }
       },
       {
         id: 1,
         titre: 'Dents',
         date: '08/03/2025',
-        statut: { id: 2, label: 'En attente' },
+        statut: { id: 2, libelle: 'En attente' },
         typeOperation: { id: 1, titre: 'Extraction dentaire', date: '03/03/2025', type: "Chirurgeries dentaires" },
-        animal: { id: 2, label: 'Chat', nom: 'Quentin' },
+        animal: { id: 2, libelle: 'Chat', nom: 'Quentin' },
         veterinarian: { id: 2, nom: 'Pucholle', prenom: 'Alsexy' }
       },
       {
         id: 3,
-        statut: { id: 3, label: 'Annulé' },
+        statut: { id: 3, libelle: 'Annulé' },
         nom: 'Quentin',
         age: 6,
-        type: { id: 3, label: 'NAC' },
+        type: { id: 3, libelle: 'NAC' },
       },
     ]);
   }
@@ -57,10 +57,10 @@ export class ConsultationService {
     //return this.httpClient.request<any>('GET', '/patient/' + id);
     return of({
       id: 1,
-      statut: { id: 1, label: 'Terminé' },
+      statut: { id: 1, libelle: 'Terminé' },
       nom: 'Achil',
       age: 24,
-      type: { id: 1, label: 'Chien' },
+      type: { id: 1, libelle: 'Chien' },
     });
   }
 

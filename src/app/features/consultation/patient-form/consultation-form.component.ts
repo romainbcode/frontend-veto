@@ -32,6 +32,9 @@ export class ConsultationFormComponent implements OnInit {
     statut: new UntypedFormControl('', [Validators.required]),
     dateNaissance: new UntypedFormControl('', [Validators.required]),
     animal: new UntypedFormControl('', [Validators.required]),
+    typeOperation: new UntypedFormControl('', [Validators.required]),
+    veterinarian: new UntypedFormControl('', [Validators.required]),
+    comment: new UntypedFormControl('', [Validators.required]),
   });
 
   types = [
@@ -58,6 +61,8 @@ export class ConsultationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("iiiijiijijjiijij")
+    console.log(this.data)
     if (this.data?.id) {
       this.loadPatientFormById(this.data.id).subscribe();
     } else {

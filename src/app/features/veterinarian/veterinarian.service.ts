@@ -7,6 +7,7 @@ import { Observable, tap, of, mergeMap } from "rxjs";
 })
 export class VeterinarianService {
     vets = signal<any[]>([]);
+    originalVets = signal<any[]>([]);
 
     constructor(private httpClient: HttpClient) {
         this.reloadVets().subscribe();
@@ -19,7 +20,10 @@ export class VeterinarianService {
 
     reloadVets(): Observable<any[]> {
         return this.getVets().pipe(
-            tap(vets => this.vets.set(vets))
+            tap(vets => {
+                this.vets.set(vets);
+                this.originalVets.set(vets);
+            })
         )
     }
 
@@ -52,4 +56,19 @@ export class VeterinarianService {
                 mergeMap(() => this.reloadVets())
             )
     }
+
+    findVetWithFilter(filterValue: string): any[] {
+        if (!filterValue) {
+          this.vets.set(this.originalVets());
+          return this.vets();
+        }
+    
+        const filteredVets = this.originalVets().filter((vet) => 
+            vet.nom.toLowerCase().includes(filterValue.toLowerCase()) ||
+            vet.prenom.toLowerCase().includes(filterValue.toLowerCase())
+        );
+      
+        this.vets.set(filteredVets);
+        return this.vets();
+      }
 }

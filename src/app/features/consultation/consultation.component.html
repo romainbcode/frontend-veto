@@ -43,11 +43,11 @@
     <table mat-table matSort [dataSource]="consultationService.consultations()" style="table-layout: auto; width: 100%;">
         <ng-container matColumnDef="Statut">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Statut</th>
-            <td mat-cell *matCellDef="let consultation">
+            <td mat-cell *matCellDef="let consultation" style="width: 7rem;">
                 <ng-container [ngSwitch]="consultation.statut.id">
-                    <span *ngSwitchCase="1" class="badge bg-success">{{consultation.statut.label}}</span>
-                    <span *ngSwitchCase="2" class="badge bg-secondary">{{consultation.statut.label}}</span>
-                    <span *ngSwitchCase="3" class="badge bg-danger">{{consultation.statut.label}}</span>
+                    <span *ngSwitchCase="1" class="badge bg-success d-inline" style="font-size: 13px;">{{consultation.statut.libelle}}</span>
+                    <span *ngSwitchCase="2" class="badge bg-secondary d-inline" style="font-size: 13px;">{{consultation.statut.libelle}}</span>
+                    <span *ngSwitchCase="3" class="badge bg-danger d-inline" style="font-size: 13px;">{{consultation.statut.libelle}}</span>
                     <span *ngSwitchDefault class="badge inconnu">Inconnu</span>
                 </ng-container>
                 </td>
@@ -59,7 +59,7 @@
         <ng-container matColumnDef="Animal">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Animal</th>
             <td mat-cell *matCellDef="let consultation"> 
-                <ng-container [ngSwitch]="consultation.animal.label">
+                <ng-container [ngSwitch]="consultation.animal.libelle">
                     <img *ngSwitchCase="'Chien'" src="./assets/tete-de-chien.png" alt="Chien" class="img-logo" >
                     <img *ngSwitchCase="'Chat'" src="./assets/tete-de-chat.png" alt="Chat" class="img-logo">
                     <img *ngSwitchCase="'NAC'" src="./assets/cameleon.png" alt="NAC" class="img-logo">
