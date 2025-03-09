@@ -21,6 +21,10 @@ export const routes: Routes = [
         loadChildren: () => import('./features/owner/owner.routes').then(m => m.OWNER_ROUTES)
     },
     {
+        path: 'veterinarian',
+        loadChildren: () => import('./features/veterinarian/veterinarian.routes').then(m => m.VETERINARIAN_ROUTES)
+    },
+    {
         path: 'surgery',
         component: SurgeryComponent,
     },

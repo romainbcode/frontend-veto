@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { faTrash, faEdit, faCheck, faHourglass, faPlus, faEllipsisVertical, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { DialogConfirmationDeleteComponent } from "../../shared/dialog/dialog-confirmation-delete/dialog-confirmation-delete.component";
-import { DialogConfirmationValidateComponent } from "../../shared/dialog/dialog-confirmation-validate/dialog-confirmation-validate.component";
+import { CardOwnerComponent } from "../../shared/card/card-owner/card-owner.component";
 import { ConsultationFicheComponent } from "../consultation/patient-fiche/consultation-fiche.component";
 import { ConsultationFormComponent } from "../consultation/patient-form/consultation-form.component";
 import { AnimalService } from "./animal.service";
@@ -18,7 +18,7 @@ import { AnimalService } from "./animal.service";
 @Component({
   selector: 'app-animal',
   standalone: true,
-  imports: [MatTableModule, CommonModule, FontAwesomeModule, MatMenuModule, MatButtonModule, MatDialogModule, FormsModule, MatSortModule],
+  imports: [MatTableModule, CommonModule, FontAwesomeModule, MatMenuModule, MatButtonModule, MatDialogModule, FormsModule, MatSortModule, CardOwnerComponent],
   templateUrl: './animal.component.html',
 })
 export class AnimalComponent {

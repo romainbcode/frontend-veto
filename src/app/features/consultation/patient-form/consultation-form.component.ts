@@ -15,6 +15,9 @@ import {
   MAT_DIALOG_DATA,
   MatDialogModule,
 } from '@angular/material/dialog';
+import { AnimalService } from '../../animal/animal.service';
+import { VeterinarianService } from '../../veterinarian/veterinarian.service';
+import { SurgeryService } from '../../surgery/surgery.service';
 
 @Component({
   selector: 'app-consultation-form',
@@ -25,10 +28,10 @@ import {
 export class ConsultationFormComponent implements OnInit {
   
   myForm = new UntypedFormGroup({
-    nom: new UntypedFormControl('', [Validators.required]),
-    age: new UntypedFormControl('', [Validators.required]),
-    type: new UntypedFormControl('', [Validators.required]),
+    titre: new UntypedFormControl('', [Validators.required]),
     statut: new UntypedFormControl('', [Validators.required]),
+    dateNaissance: new UntypedFormControl('', [Validators.required]),
+    animal: new UntypedFormControl('', [Validators.required]),
   });
 
   types = [
@@ -37,8 +40,17 @@ export class ConsultationFormComponent implements OnInit {
     { id: 3, libelle: 'NAC' }
   ];
 
+  statuts = [
+    { id: 1, libelle: 'Terminé' },
+    { id: 2, libelle: 'En attente' },
+    { id: 3, libelle: 'Annulé' }
+  ];
+
   constructor(
     protected consultationService: ConsultationService,
+    protected animalService: AnimalService,
+    protected veterinarianService: VeterinarianService,
+    protected surgeryService: SurgeryService,
     private router: Router,
     private dialogRef: MatDialogRef<ConsultationFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -48,6 +60,10 @@ export class ConsultationFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.data?.id) {
       this.loadPatientFormById(this.data.id).subscribe();
+    } else {
+      this.myForm.patchValue({
+        statut: 2
+      })
     }
   }
 
@@ -84,8 +100,8 @@ export class ConsultationFormComponent implements OnInit {
     }
   }
 
-  protected get nomFc(): UntypedFormControl {
-    return this.myForm.get('nom') as UntypedFormControl;
+  protected get titreFc(): UntypedFormControl {
+    return this.myForm.get('titre') as UntypedFormControl;
   }
   protected get ageFc(): UntypedFormControl {
     return this.myForm.get('age') as UntypedFormControl;

@@ -18,17 +18,21 @@ export class ConsultationService {
     return of([
       {
         id: 1,
+        titre: 'Dents',
+        date: '08/03/2025',
         statut: { id: 1, label: 'Terminé' },
-        nom: 'Achil',
-        age: 24,
-        type: { id: 1, label: 'Chien' },
+        typeOperation: { id: 1, titre: 'Extraction dentaire', date: '03/03/2025', type: "Chirurgeries dentaires" },
+        animal: { id: 1, label: 'Chien', nom: 'Achil' },
+        veterinarian: { id: 1, nom: 'Isnard', prenom: 'Zoé' }
       },
       {
-        id: 2,
+        id: 1,
+        titre: 'Dents',
+        date: '08/03/2025',
         statut: { id: 2, label: 'En attente' },
-        nom: 'Alexy',
-        age: 24,
-        type: { id: 2, label: 'Chat' },
+        typeOperation: { id: 1, titre: 'Extraction dentaire', date: '03/03/2025', type: "Chirurgeries dentaires" },
+        animal: { id: 2, label: 'Chat', nom: 'Quentin' },
+        veterinarian: { id: 2, nom: 'Pucholle', prenom: 'Alsexy' }
       },
       {
         id: 3,

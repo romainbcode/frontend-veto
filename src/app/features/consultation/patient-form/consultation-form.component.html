@@ -2,30 +2,53 @@
   <h4 mat-dialog-title>Créer une consultation</h4>
   <div class="p-4">
     <div class="form-group">
-      <label for="nom">Nom<span style="color: red;">*</span></label>
-      <input type="text" class="form-control" id="nom" formControlName='nom'/>
-      <div *ngIf="nomFc?.touched">
-        <div *ngIf="nomFc?.errors?.['required']" class="alert alert-danger">Le nom est obligatoire</div>
+      <label for="nom">Titre<span style="color: red;">*</span></label>
+      <input type="text" class="form-control" id="titre" formControlName='titre'/>
+      <div *ngIf="titreFc?.touched">
+        <div *ngIf="titreFc?.errors?.['required']" class="alert alert-danger">Le titre est obligatoire</div>
       </div>
     </div>
     <div class="form-group">
       <label for="statut">Statut<span style="color: red;">*</span></label>
-      <input type="text" class="form-control" id="statut" formControlName='statut'/>
+      <select class="form-select" formControlName='statut'>
+        <option *ngFor="let statut of statuts" [ngValue]="statut.id">{{statut.libelle}}</option>
+      </select>
       <div *ngIf="statutFc?.touched">
         <div *ngIf="statutFc?.errors?.['required']" class="alert alert-danger">Le statut est obligatoire</div>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="age">Age</label>
-      <input type="number" class="form-control" id="age" formControlName='age'/>
-      
+      <label for="age">Date de naissance</label>
+      <input type="number" class="form-control" id="dateNaissance" formControlName='dateNaissance'/>
     </div>
     <div class="form-group">
-      <label for="type">Type<span style="color: red;">*</span></label>
-      <select class="form-select" formControlName='type'>
-          <option *ngFor="let type of types" [ngValue]="type.id">{{type.libelle}}</option>
+      <label for="animal">Animal<span style="color: red;">*</span></label>
+      <select class="form-select" formControlName='animal'>
+          <option *ngFor="let animal of animalService.animaux()" [ngValue]="animal.id">
+            {{animal.nom}}
+          </option>
       </select>
+    </div>
+    <div class="form-group">
+      <label for="typeOperation">Type d'opération<span style="color: red;">*</span></label>
+      <select class="form-select" formControlName='typeOperation'>
+          <option *ngFor="let surgerie of surgeryService.surgeries()" [ngValue]="surgerie.id">
+            {{surgerie.titre}}
+          </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="veterinarian">Vétérinaire<span style="color: red;">*</span></label>
+      <select class="form-select" formControlName='veterinarian'>
+          <option *ngFor="let vet of veterinarianService.vets()" [ngValue]="vet.id">
+            {{vet.nom}}
+          </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="comment">Commentaire</label>
+      <input type="text" class="form-control" id="comment" formControlName='comment'/>
     </div>
   </div>
 </form>

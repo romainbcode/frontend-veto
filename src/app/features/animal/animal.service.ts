@@ -21,20 +21,20 @@ export class AnimalService {
         nom: 'Achil',
         dateNaissance: '07/03/2024',
         type: { id: 1, label: 'Chien' },
-        proprietaire: {id: 1, nom: 'ProprioRomain'}
+        proprietaire: {id: 1, nom: 'ProprioRomain1', prenom: 'PropioPrenom1', email: 'test1@gmail.com'}
       },
       {
         id: 2,
         nom: 'Quentin',
         dateNaissance: '04/03/2024',
-        type: { id: 1, label: 'NAC' },
-        proprietaire: {id: 1, nom: 'ProprioRomain2'}
+        type: { id: 3, label: 'NAC' },
+        proprietaire: {id: 1, nom: 'ProprioRomain2', prenom: 'PropioPrenom2', email: 'test2@gmail.com'}
       },{
         id: 3,
         nom: 'Nasser',
         dateNaissance: '07/01/2024',
-        type: { id: 1, label: 'Chat' },
-        proprietaire: {id: 1, nom: 'ProprioRomain3'}
+        type: { id: 2, label: 'Chat' },
+        proprietaire: {id: 1, nom: 'ProprioRomain3', prenom: 'PropioPrenom3', email: 'test@gmail.com3'}
       },
     ]);
   }
@@ -55,7 +55,7 @@ export class AnimalService {
         nom: 'Achil',
         dateNaissance: '07/03/2024',
         type: { id: 1, label: 'Chien' },
-        proprietaire: {id: 1, nom: 'ProprioRomain'}
+        proprietaire: {id: 1, nom: 'ProprioRomain', prenom: 'PropioPrenom', email: 'test@gmail.com'}
       },);
   }
 

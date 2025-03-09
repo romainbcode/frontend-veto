@@ -7,6 +7,7 @@ import { faTrash, faEdit, faCheck, faHourglass, faEllipsisVertical, faPlus, faMa
 import { DialogConfirmationDeleteComponent } from '../../shared/dialog/dialog-confirmation-delete/dialog-confirmation-delete.component'; 
 import { ConsultationService } from './consultation.service';
 import { DialogConfirmationValidateComponent } from '../../shared/dialog/dialog-confirmation-validate/dialog-confirmation-validate.component';
+import { CardVetComponent } from '../../shared/card/card-vet/card-vet.component';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { ConsultationFormComponent } from './patient-form/consultation-form.component';
@@ -22,7 +23,7 @@ import { MatSortModule } from '@angular/material/sort';
 @Component({
   selector: 'app-consultation',
   standalone: true,
-  imports: [MatTableModule, CommonModule, FontAwesomeModule, MatMenuModule, MatButtonModule, MatDialogModule, FormsModule, MatSortModule],
+  imports: [MatTableModule, CommonModule, FontAwesomeModule, MatMenuModule, MatButtonModule, MatDialogModule, FormsModule, MatSortModule, CardVetComponent],
   templateUrl: './consultation.component.html',
 })
 export class ConsultationComponent {
@@ -91,12 +92,12 @@ export class ConsultationComponent {
   }
 
   get consultationsFinishedCount() {
-    return this.consultationService.consultations().filter((consultation) => consultation.type.id === 1)
+    return this.consultationService.consultations().filter((consultation) => consultation.statut.id === 1)
     .length;
   }
 
   get consultationsPendingCount() {
-    return this.consultationService.consultations().filter((consultation) => consultation.type.id === 2)
+    return this.consultationService.consultations().filter((consultation) => consultation.statut.id === 2)
     .length;
   }
 }
