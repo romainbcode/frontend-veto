@@ -1,1 +1,0 @@
-import{d as o}from"./chunk-GWJNBV46.js";import"./chunk-WS7OEYDR.js";import"./chunk-JOFQLKKD.js";import"./chunk-YSJNSMYB.js";import"./chunk-BEANJWLH.js";var p=[{path:"",loadComponent:()=>import("./chunk-FXZTMSHV.js").then(t=>t.DocumentComponent)},{path:"create",component:o},{path:"edit/:id",component:o},{path:":id",component:o}];export{p as DOCUMENT_ROUTES};
