@@ -1,6 +1,6 @@
 <div class="d-flex flex-column">
   <div class="d-flex justify-content-between align-items-center">
-        <h4 mat-dialog-title>{{consultation.titre}}</h4>
+        <h4 mat-dialog-title>Détails de la consultation</h4>
     <button class="btn" (click)="close()">
       <fa-icon class="me-2" [icon]="faXmark"></fa-icon>
     </button>
@@ -23,7 +23,7 @@
       </div>
     </div>
       <div class="d-flex flex-column justify-content-center">
-        <span>{{consultation.typeOperation.titre}} le {{consultation.date}} par {{consultation.veterinarian.nom}} {{consultation.veterinarian.prenom}}</span>
+        <span>{{consultation.typeOperation.label}} le {{consultation.date}} par {{consultation.veterinarian.nom}} {{consultation.veterinarian.prenom}}</span>
       </div>
     </div>
 </div>

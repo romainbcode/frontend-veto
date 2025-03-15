@@ -53,7 +53,7 @@ export class AnimalService {
     return of({
         id: 1,
         nom: 'Achil',
-        dateNaissance: '07/03/2024',
+        dateNaissance: '07/01/2024',
         type: { id: 1, label: 'Chien' },
         proprietaire: {id: 1, nom: 'ProprioRomain', prenom: 'PropioPrenom', email: 'test@gmail.com'}
       },);

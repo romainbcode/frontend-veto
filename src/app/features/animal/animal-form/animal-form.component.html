@@ -1,1 +1,47 @@
-<p>animal-form works!</p>
+<form [formGroup]="animalForm">
+    <h4 mat-dialog-title>Créer un Animal</h4>
+    <div class="p-4">
+      <div class="d-flex flex-row mb-2">
+        <div class="form-group w-50 me-2">
+          <label for="nom">Nom de l'animal<span style="color: red;">*</span></label>
+          <input type="text" class="form-control" id="nom" formControlName="nom"/>
+          <div *ngIf="animalForm.get('nom')?.touched">
+            <div *ngIf="animalForm.get('nom')?.hasError('required')" class="alert alert-danger">Le nom de l'animal est obligatoire</div>
+          </div>
+        </div>
+        <div class="form-group w-50">
+          <label for="dateNaissance">Date de naissance<span style="color: red;">*</span></label>
+          <input type="date" class="form-control" id="dateNaissance" formControlName="dateNaissance"/>
+        </div>
+      </div>
+  
+      <div class="d-flex flex-row mb-2">
+        <div class="form-group w-50 me-2">
+          <label for="type">Type d'animal<span style="color: red;">*</span></label>
+          <select class="form-select" formControlName="type">
+            <option *ngFor="let type of types" [ngValue]="type.id">{{ type.label }}</option>
+          </select>
+          <div *ngIf="animalForm.get('type')?.touched">
+            <div *ngIf="animalForm.get('type')?.hasError('required')" class="alert alert-danger">Le type d'animal est obligatoire</div>
+          </div>
+        </div>
+
+        <div class="form-group w-50 me-2">
+            <label for="veterinarian">Propriétaire<span style="color: red;">*</span></label>
+            <select class="form-select" formControlName='proprietaire'>
+                <option *ngFor="let owner of ownerService.owners()" [ngValue]="owner.id">
+                  {{owner.prenom}} {{owner.nom}}
+                </option>
+            </select>
+          </div>
+      </div>
+    </div>
+  </form>
+  
+  <mat-dialog-actions class="d-flex flex-row justify-content-evenly">
+    <button class="cancel-button" (click)="cancel()">Annuler</button>
+    <button class="d-flex justify-content-center align-items-center btn btn-success" (click)="onSubmit()">
+      Ajouter un animal
+    </button>
+  </mat-dialog-actions>
+  

@@ -15,6 +15,7 @@ import { ConsultationFicheComponent } from "../consultation/consultation-fiche/c
 import { ConsultationFormComponent } from "../consultation/consultation-form/consultation-form.component";
 import { AnimalService } from "./animal.service";
 import { AnimalFicheComponent } from "./animal-fiche/animal-fiche.component";
+import { AnimalFormComponent } from "./animal-form/animal-form.component";
 
 @Component({
   selector: 'app-animal',
@@ -55,7 +56,7 @@ export class AnimalComponent {
     }
 
     createAnimal(): void {
-      this.dialog.open(ConsultationFormComponent, {
+      this.dialog.open(AnimalFormComponent, {
           width: '500px',
       });
 
@@ -65,7 +66,7 @@ export class AnimalComponent {
     }
 
     editAnimal(id: number): void {
-      this.dialog.open(ConsultationFormComponent, {
+      this.dialog.open(AnimalFormComponent, {
           width: '500px',
           data: {id: id}
       });
@@ -73,7 +74,7 @@ export class AnimalComponent {
 
     showAnimal(id: number): void {
       this.dialog.open(AnimalFicheComponent, {
-          width: '500px',
+          width: '800px',
           data: {id: id}
       });
     } 

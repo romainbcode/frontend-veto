@@ -21,7 +21,7 @@ export class ConsultationFicheComponent implements OnInit {
     statut: '',
     date: '',
     animal: {nom: '', dateNaissance: ''},
-    typeOperation: {titre: ''},
+    typeOperation: {label: ''},
     veterinarian: {nom: '', prenom: ''},
     comment: '',
   }

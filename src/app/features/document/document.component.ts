@@ -2,13 +2,13 @@ import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { faTrash, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { DialogConfirmationDeleteComponent } from '../../shared/dialog/dialog-confirmation-delete/dialog-confirmation-delete.component';
 import { DocumentService } from './document.service';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DocumentFormComponent } from './document-form/document-form.component';
 import { DocumentFicheComponent } from './document-fiche/document-fiche.component';
+import { DialogConfirmationDeleteComponent } from '../../shared/dialog/dialog-confirmation-delete/dialog-confirmation-delete.component';
 
 @Component({
   selector: 'app-document',
@@ -37,6 +37,12 @@ constructor(protected documentService: DocumentService, private router: Router){
         this.documentService.deleteDocumentById(id).subscribe();
       }
     });
+  }
+
+  createTypeDocument(): void {
+    /*this.dialog.open(ConsultationTypeForm, {
+      width: '500px',
+    });*/
   }
 
   createDocument(): void {

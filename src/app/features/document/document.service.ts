@@ -14,7 +14,7 @@ export class DocumentService {
 
     getDocuments(): Observable<any[]> {
         //return this.httpClient.request<any[]>('GET', '/document');
-        return of([{ id: 1, titre: 'Consignes sorties extraction chien', type: 'Consignes Post-Opératoire' }, { id: 2, titre: 'Consignes sorties extraction chat', type: 'Consignes Post-Opératoire' }]);
+        return of([{ id: 1, titre: 'Consignes sorties extraction chien', type: 'Consignes Post-Opératoire', content: 'Content....' }, { id: 2, titre: 'Consignes sorties extraction chat', type: 'Consignes Post-Opératoire', content: 'Content....' }]);
     }
 
     reloadDocuments(): Observable<any[]> {
@@ -25,7 +25,7 @@ export class DocumentService {
 
     findDocumentById(id: number) : Observable<any> {
         //return this.httpClient.request<any>('GET', '/document/' + id);
-        return of({ id: 1, titre: 'Consignes sorties extraction chien', type: 'Consignes Post-Opératoire' });
+        return of({ id: 1, titre: 'Consignes sorties extraction chien', type: 'Consignes Post-Opératoire', content: 'Content....' });
     }
 
     deleteDocumentById(id: number): Observable<any[]> {

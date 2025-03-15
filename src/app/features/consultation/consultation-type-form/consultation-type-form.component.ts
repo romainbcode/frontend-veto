@@ -18,7 +18,7 @@ import {
 import { CardTypeConsultationComponent } from '../../../shared/card/card-type-consultation/card-type-consultation.component';
 
 @Component({
-  selector: 'app-consultation-form',
+  selector: 'app-consultation-type-form',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, CommonModule, MatDialogModule, CardTypeConsultationComponent],
   templateUrl: './consultation-type-form.component.html',
