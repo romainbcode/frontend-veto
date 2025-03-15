@@ -71,6 +71,27 @@ export class ConsultationService {
     });
   }
 
+  findConsultationByAnimalId(id: number): Observable<any[]> {
+    //return this.httpClient.request<any>('GET', '/patient/' + id);
+    return of([{
+      id: 1,
+      titre: 'Dents',
+      date: '08/03/2025',
+      statut: { id: 1, libelle: 'Terminé' },
+      typeOperation:{ id: 2, label: 'Dents de sagesse', color: '#000', comment: 'Arracher des chicots de sagesse'},
+      animal: { id: 1, libelle: 'Chien', nom: 'Achil', dateNaissance: '07/03/2024'},
+      veterinarian: { id: 1, nom: 'Isnard', prenom: 'Zoé' }
+    }, {
+      id: 2,
+      titre: 'Dents',
+      date: '08/03/2025',
+      statut: { id: 2, libelle: 'En attente' },
+      typeOperation:{ id: 2, label: 'Dents de sagesse', color: '#000', comment: 'Arracher des chicots de sagesse'},
+      animal: { id: 1, libelle: 'Chien', nom: 'Achil', dateNaissance: '07/03/2024' },
+      veterinarian: { id: 2, nom: 'Pucholle', prenom: 'Alsexy' }
+    },]);
+  }
+
   findConsultationWithFilter(filterValue: string): any[] {
     if (!filterValue) {
       this.consultations.set(this.originalConsultations());

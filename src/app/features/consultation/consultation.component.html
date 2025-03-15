@@ -34,7 +34,7 @@
             </div>
             <input type="text" class="form-control" placeholder="Rechercher..." [(ngModel)]="searchTerm" (ngModelChange)="filterConsultations()">
         </div>
-        <button class="btn btn-dark me-2" (click)="createTypeConsultation()">
+        <button class="btn btn-secondary me-2" (click)="createTypeConsultation()">
             <fa-icon class="me-2" [icon]="faPlus"></fa-icon>
             <span>Ajouter un type de consultation</span>
         </button>
@@ -79,7 +79,6 @@
         <ng-container matColumnDef="TypeOperation">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Type d'opération</th>
             <td mat-cell *matCellDef="let consultation"> 
-                {{consultation.typeOperation.label}}{{consultation.typeOperation.color}}
                 <app-card-type-consultation [label]="consultation.typeOperation.label" [color]="consultation.typeOperation.color"/>
             </td>
         </ng-container>

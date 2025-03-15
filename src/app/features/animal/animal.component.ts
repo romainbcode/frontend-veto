@@ -14,6 +14,7 @@ import { CardOwnerComponent } from "../../shared/card/card-owner/card-owner.comp
 import { ConsultationFicheComponent } from "../consultation/consultation-fiche/consultation-fiche.component";
 import { ConsultationFormComponent } from "../consultation/consultation-form/consultation-form.component";
 import { AnimalService } from "./animal.service";
+import { AnimalFicheComponent } from "./animal-fiche/animal-fiche.component";
 
 @Component({
   selector: 'app-animal',
@@ -71,7 +72,7 @@ export class AnimalComponent {
     }
 
     showAnimal(id: number): void {
-      this.dialog.open(ConsultationFicheComponent, {
+      this.dialog.open(AnimalFicheComponent, {
           width: '500px',
           data: {id: id}
       });
