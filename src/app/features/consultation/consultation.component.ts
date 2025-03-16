@@ -3,7 +3,7 @@ import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faTrash, faEdit, faCheck, faHourglass, faEllipsisVertical, faPlus, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faEdit, faCheck, faHourglass, faEllipsisVertical, faPlus, faMagnifyingGlass, faFileText } from '@fortawesome/free-solid-svg-icons';
 import { DialogConfirmationDeleteComponent } from '../../shared/dialog/dialog-confirmation-delete/dialog-confirmation-delete.component'; 
 import { ConsultationService } from './consultation.service';
 import { DialogConfirmationValidateComponent } from '../../shared/dialog/dialog-confirmation-validate/dialog-confirmation-validate.component';
@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSortModule } from '@angular/material/sort';
 import { ConsultationTypeForm } from './consultation-type-form/consultation-type-form.component';
 import { CardTypeConsultationComponent } from '../../shared/card/card-type-consultation/card-type-consultation.component';
+import { DocumentFicheComponent } from '../document/document-fiche/document-fiche.component';
 
 @Component({
   selector: 'app-consultation',
@@ -40,6 +41,7 @@ export class ConsultationComponent {
   faPlus=faPlus;
   faEllipsisVertical=faEllipsisVertical;
   faMagnifyingGlass=faMagnifyingGlass;
+  faFileText = faFileText;
 
   displayedColumns: string[] = ['Statut', 'Titre', 'Date', 'Animal', 'Veterinaire', 'TypeOperation', 'Actions'];
 
@@ -97,6 +99,12 @@ export class ConsultationComponent {
     dialogRef.afterClosed().subscribe(result => {
       if(result) this.consultationService.completeConsultationById(id).subscribe()
     })
+  }
+
+  generateDocument(): void {
+    this.dialog.open(DocumentFicheComponent, {
+      width: '500px',
+    });
   }
 
   get consultationsFinishedCount() {

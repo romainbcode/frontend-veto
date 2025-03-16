@@ -1,0 +1,47 @@
+<div class="d-flex justify-content-center mb-5">
+    <h2 class="fw-bold">Documents</h2>
+</div>
+
+<div class="d-flex justify-content-end align-items-center">
+    <button class="btn btn-secondary me-2" (click)="createTypeDocument()">
+        <fa-icon class="me-2" [icon]="faPlus"></fa-icon>
+        <span>Ajouter un type de consultation</span>
+    </button>
+  <button class="btn btn-dark" (click)="createDocument()">
+      <fa-icon class="me-2" [icon]="faPlus"></fa-icon>
+      <span>Ajouter un document</span>
+  </button>
+</div>
+<table mat-table [dataSource]="documentService.documents()">
+
+    <ng-container matColumnDef="Titre">
+        <th mat-header-cell *matHeaderCellDef>Titre</th>
+        <td mat-cell *matCellDef="let document"> {{ document.titre }}</td>
+    </ng-container>
+    <ng-container matColumnDef="Type">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let document"> {{ document.type }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let document">
+            <button mat-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
+                <fa-icon style="color: black" [icon]="faEllipsisVertical"></fa-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="deleteDocument(document.id); $event.stopPropagation()">
+                    <fa-icon class="me-2" style="color: red" [icon]="faTrash"></fa-icon>
+                    <span>Supprimer</span>
+                </button>
+                <button mat-menu-item (click)="editDocument(document.id); $event.stopPropagation()">
+                    <fa-icon class="me-2" style="color: blue" [icon]="faEdit"></fa-icon>
+                    <span>Modifier</span>
+                </button>
+            </mat-menu>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showDocument(row.id)"></tr>
+</table>

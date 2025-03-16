@@ -6,14 +6,25 @@
     </button>
   </div>
   <div class="px-4 pb-4">
-    <div class="d-flex flex-row">
-      <div class="d-flex flex-column justify-content-center">
-          <div class="form-group me-2">
-            <label>Titre</label>
-            <input type="text" class="form-control" id="titre" formControlName='titre'/>
-          </div>
+    <ng-container
+      *ngIf="this.data?.id; then documentWithId; else documentWithoutId">
+    </ng-container>
+    <ng-template #documentWithId>
+      <div class="form-group">
+        <label for="titre">Titre<span style="color: red;">*</span></label>
+        <input type="text" class="form-control" id="titre" formControlName="titre"/>
       </div>
-    </div>
+    </ng-template>
+    <ng-template #documentWithoutId>
+      <div class="form-group">
+        <label for="titre">Titre<span style="color: red;">*</span></label>
+        <select class="form-select" formControlName='titre'>
+            <option *ngFor="let document of documentService.documents()" [ngValue]="document.id">
+              {{document.titre}}
+            </option>
+        </select>
+      </div>
+    </ng-template>
     <div class="form-group">
       <label for="statut">Informations complémentaires</label>
       <input type="text" class="form-control" id="infosComp" formControlName="infosComp"/>

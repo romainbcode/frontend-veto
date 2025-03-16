@@ -31,5 +31,9 @@ export const routes: Routes = [
     {
         path: 'document',
         loadChildren: () => import('./features/document/document.routes').then(m => m.DOCUMENT_ROUTES)
+    },
+    {
+        path: 'office',
+        loadChildren: () => import('./features/office/office.routes').then(m => m.OFFICE_ROUTES)
     }
 ];

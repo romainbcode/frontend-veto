@@ -3,10 +3,10 @@ import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, Reactive
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { tap } from 'rxjs';
-import { ConsultationFicheComponent } from '../../consultation/consultation-fiche/consultation-fiche.component';
 import { DocumentService } from '../document.service';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ConsultationFicheComponent } from '../../../consultation/consultation-fiche/consultation-fiche.component';
 
 @Component({
   selector: 'app-document-fiche',
@@ -20,7 +20,6 @@ export class DocumentFicheComponent implements OnInit {
   myForm = new UntypedFormGroup({
       titre: new UntypedFormControl('', [Validators.required]),
       type: new UntypedFormControl('', [Validators.required]),
-      infosComp: new UntypedFormControl('', [Validators.required])
     });
 
   constructor(
@@ -30,21 +29,7 @@ export class DocumentFicheComponent implements OnInit {
     {}
 
   ngOnInit(): void {
-    if(this.data?.id) {
-      this.loadDocumentFormById(this.data.id).subscribe();
-    }else if(this.data === null) {
-      console.log("dans else")
-      this.myForm.get('titre')?.valueChanges.subscribe((documentId) => {
-        this.updateInfosComp(documentId);
-      });
-    }
-  }
-
-  private updateInfosComp(documentId: number): void {
-    const selectedDocument = this.documentService.documents().find(doc => doc.id === documentId);
-    if (selectedDocument) {
-      this.myForm.get('infosComp')?.setValue(selectedDocument.content);
-    }
+    this.loadDocumentFormById(this.data.id).subscribe();
   }
 
   protected loadDocumentFormById(id: number) {
@@ -54,7 +39,7 @@ export class DocumentFicheComponent implements OnInit {
           this.myForm.patchValue({
             'titre': res.titre,
             'type': res.type,
-            'infosComp': res.content
+            'infosComp': ''
           })
           this.myForm.disable();
           this.myForm.get('infosComp')?.enable();

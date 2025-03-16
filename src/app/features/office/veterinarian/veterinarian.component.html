@@ -1,0 +1,44 @@
+
+<div class="d-flex justify-content-center mb-5">
+    <h2 class="fw-bold">Vétérinaires</h2>
+</div>
+
+<div class="d-flex justify-content-end align-items-center">
+    <button class="btn btn-dark" (click)="createVet()">
+        <fa-icon class="me-2" [icon]="faPlus"></fa-icon>
+        <span>Ajouter un vétérinaire</span>
+    </button>
+</div>
+
+<table mat-table [dataSource]="veterinarianService.vets()">
+    <ng-container matColumnDef="Prenom">
+        <th mat-header-cell *matHeaderCellDef>Prenom</th>
+        <td mat-cell *matCellDef="let vet"> {{ vet.prenom }}</td>
+    </ng-container>
+    <ng-container matColumnDef="Nom">
+        <th mat-header-cell *matHeaderCellDef>Nom</th>
+        <td mat-cell *matCellDef="let vet"> {{ vet.nom }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let vet">
+            <button mat-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
+                <fa-icon style="color: black" [icon]="faEllipsisVertical"></fa-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="deleteVet(vet.id); $event.stopPropagation()">
+                    <fa-icon class="me-2" style="color: red" [icon]="faTrash"></fa-icon>
+                    <span>Supprimer</span>
+                </button>
+                <button mat-menu-item (click)="editVet(vet.id); $event.stopPropagation()">
+                    <fa-icon class="me-2" style="color: blue" [icon]="faEdit"></fa-icon>
+                    <span>Modifier</span>
+                </button>
+            </mat-menu>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showVet(row.id)"></tr>
+</table>
